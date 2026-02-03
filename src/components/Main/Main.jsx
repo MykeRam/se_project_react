@@ -1,18 +1,21 @@
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 
-function Main() {
-  // placeholder data (replace when you connect APIs/state)
-  const items = [1, 2, 3];
+function Main({ weatherData, clothingItems }) {
+  const filteredItems = clothingItems.filter(
+    (item) => item.weather === weatherData.type
+  );
 
   return (
     <main className="main">
-      <WeatherCard />
+      <WeatherCard weatherData={weatherData} />
 
-      <section className="main__items">
-        {items.map((id) => (
-          <ItemCard key={id} />
-        ))}
+      <section className="main__section">
+        <ul className="main__items">
+          {filteredItems.map((item) => (
+            <ItemCard key={item._id} item={item} />
+          ))}
+        </ul>
       </section>
     </main>
   );

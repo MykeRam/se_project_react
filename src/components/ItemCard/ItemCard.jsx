@@ -1,4 +1,9 @@
-function ItemCard() {
-  return <div className="item-card">Item Card</div>;
+function ItemCard({ item }) {
+  return (
+    <li className="item-card">
+      <p className="item-card__name">{item.name}</p>
+    </li>
+  );
 }
+
 export default ItemCard;
