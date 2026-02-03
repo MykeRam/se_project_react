@@ -1,5 +1,5 @@
-import WeatherCard from "../WeatherCard/WeatherCard";
-import ItemCard from "../ItemCard/ItemCard";
+import WeatherCard from "../WeatherCard/WeatherCard.jsx";
+import ItemCard from "../ItemCard/ItemCard.jsx";
 
 function Main({ weatherData, clothingItems }) {
   const filteredItems = clothingItems.filter(
