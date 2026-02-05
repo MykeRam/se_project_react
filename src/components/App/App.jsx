@@ -6,6 +6,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/clothingItems";
 
+
 function App() {
   // hardcoded for now (replace with real data later)
   const [weatherData] = useState({
@@ -18,12 +19,20 @@ function App() {
 
   const [clothingItems] = useState(defaultClothingItems);
 
+  const [selectedCard, setSelectedCard] = useState(null);
+
   function handleAddClick() {
   setActiveModal("add-garment");
 }
 
+function handleCardClick(card) {
+  setSelectedCard(card);
+  setActiveModal("preview");
+}
+
 function handleCloseModal() {
   setActiveModal("");
+  setSelectedCard(null);
 }
 
   return (
@@ -34,7 +43,11 @@ function handleCloseModal() {
         user={{ name: "Myke", avatar: "https://via.placeholder.com/40" }}
       />
 
-      <Main weatherData={weatherData} clothingItems={clothingItems} />
+      <Main
+  weatherData={weatherData}
+  clothingItems={clothingItems}
+  onCardClick={handleCardClick}
+/>
 
       <Footer />
 
@@ -45,6 +58,13 @@ function handleCloseModal() {
   isOpen={activeModal === "add-garment"}
   onClose={handleCloseModal}
 />
+
+      <ItemModal
+        isOpen={activeModal === "preview"}
+        card={selectedCard}
+        onClose={handleCloseModal}
+      />
+
     </div>
   );
 }

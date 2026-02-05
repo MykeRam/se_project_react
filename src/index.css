@@ -1,0 +1,4 @@
+body { margin: 0; font-family: Arial, sans-serif; }
+.main__items { list-style: none; padding: 0; display: grid; gap: 12px; }
+.item-card__image { width: 150px; height: auto; display: block; }
+.item-card__name { color: black; margin: 6px 0 0; }
