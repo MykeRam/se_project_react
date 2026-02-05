@@ -1,21 +1,10 @@
-import WeatherCard from "../WeatherCard/WeatherCard";
-import ItemCard from "../ItemCard/ItemCard";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./components/App/App";
+import "./index.css";
 
-function Main() {
-  // placeholder data (replace when you connect APIs/state)
-  const items = [1, 2, 3];
-
-  return (
-    <main className="main">
-      <WeatherCard />
-
-      <section className="main__items">
-        {items.map((id) => (
-          <ItemCard key={id} />
-        ))}
-      </section>
-    </main>
-  );
-}
-
-export default Main;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

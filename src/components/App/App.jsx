@@ -4,6 +4,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import { defaultClothingItems } from "../../utils/clothingItems";
 
 function App() {
   // hardcoded for now (replace with real data later)
@@ -13,21 +14,17 @@ function App() {
     type: "warm", // example: "hot" | "warm" | "cold"
   });
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState("");
 
-  const clothingItems = [
-    { _id: 1, name: "Jacket", weather: "cold" },
-    { _id: 2, name: "Hoodie", weather: "warm" },
-    { _id: 3, name: "T-Shirt", weather: "hot" },
-  ];
+  const [clothingItems] = useState(defaultClothingItems);
 
   function handleAddClick() {
-    setIsAddModalOpen(true);
-  }
+  setActiveModal("add-garment");
+}
 
-  function handleCloseModals() {
-    setIsAddModalOpen(false);
-  }
+function handleCloseModal() {
+  setActiveModal("");
+}
 
   return (
     <div className="app">
@@ -41,11 +38,15 @@ function App() {
 
       <Footer />
 
-      <ModalWithForm isOpen={isAddModalOpen} onClose={handleCloseModals} />
-      <ItemModal />
+      <ModalWithForm
+  name="add-garment"
+  title="New garment"
+  buttonText="Add garment"
+  isOpen={activeModal === "add-garment"}
+  onClose={handleCloseModal}
+/>
     </div>
   );
 }
 
 export default App;
-export { defaultClothingItems };
