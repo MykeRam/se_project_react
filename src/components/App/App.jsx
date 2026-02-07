@@ -1,3 +1,4 @@
+import "./App.css";
 import { useEffect, useState } from "react";
 import { getWeather, getTimeOfDay,
   getWeatherType, } from "../../utils/weatherApi";
