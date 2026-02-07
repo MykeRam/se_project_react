@@ -1,3 +1,5 @@
+import "./ItemModal.css";
+
 function ItemModal({ isOpen, card, onClose }) {
   if (!card) return null;
 

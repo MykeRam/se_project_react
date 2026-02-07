@@ -1,4 +1,15 @@
-body { margin: 0; font-family: Arial, sans-serif; }
-.main__items { list-style: none; padding: 0; display: grid; gap: 12px; }
-.item-card__image { width: 150px; height: auto; display: block; }
-.item-card__name { color: black; margin: 6px 0 0; }
+/* src/index.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #000;
+  background: #f3f3f3;
+}
+
+.app {
+  min-height: 100vh;
+}

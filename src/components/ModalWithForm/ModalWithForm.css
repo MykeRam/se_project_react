@@ -1,4 +1,12 @@
 .modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.5);
+
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -8,4 +16,36 @@
   visibility: visible;
   opacity: 1;
   pointer-events: auto;
+}
+
+.modal__content {
+  width: 360px;
+  max-width: calc(100% - 32px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.modal__title {
+  margin: 0 0 16px;
+}
+
+.modal__form {
+  display: grid;
+  gap: 12px;
+}
+
+.modal__submit {
+  padding: 10px 12px;
+  cursor: pointer;
 }

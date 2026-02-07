@@ -1,0 +1,12 @@
+.weather-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: inline-block;
+}
+
+.weather-card__temp {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}

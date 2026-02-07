@@ -1,3 +1,5 @@
+import "./Header.css";
+
 function Header({ weatherData, onAddClick, user }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",

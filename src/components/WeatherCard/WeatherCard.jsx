@@ -1,3 +1,5 @@
+import "./WeatherCard.css";
+
 function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
