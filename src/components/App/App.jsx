@@ -46,7 +46,7 @@ function handleCloseModal() {
       <Header
         weatherData={weatherData}
         onAddClick={handleAddClick}
-        user={{ name: "Myke", avatar: "https://via.placeholder.com/40" }}
+        user={{ name: "Myke", avatar: "https://comicbook.com/wp-content/uploads/sites/4/2021/09/f07f8eed57dbf719fa539475e6e3f399.jpeg" }}
       />
 
       <Main
