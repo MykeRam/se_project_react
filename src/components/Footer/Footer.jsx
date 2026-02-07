@@ -1,6 +1,15 @@
 import "./Footer.css";
 
 function Footer() {
-  return <footer className="footer">Developed by Michael Ramirez</footer>;
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="footer">
+      <p className="footer__copyright">
+        © {currentYear} WTWR Developed by Michael Ramirez
+      </p>
+    </footer>
+  );
 }
+
 export default Footer;

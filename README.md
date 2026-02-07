@@ -62,3 +62,4 @@ The project can be built and previewed locally using:
 ```bash
 npm run build
 npm run preview
+```

@@ -3,7 +3,7 @@ import "./ItemModal.css";
 function ItemModal({ isOpen, card, onClose }) {
   if (!card) return null;
 
-  function handleOverlayClick(evt) {
+  function handleOverlayClick(e) {
     if (evt.target.classList.contains("modal")) {
       onClose();
     }

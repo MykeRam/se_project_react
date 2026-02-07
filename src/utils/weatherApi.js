@@ -29,7 +29,6 @@ function filterWeatherData(data) {
   const location = data.name;
   const type = getWeatherCondition(temperature);
 
-
   const sunrise = data.sys.sunrise;
   const sunset = data.sys.sunset;
   const timeOfDay = getTimeOfDay(sunrise, sunset);
@@ -44,7 +43,7 @@ function getWeather() {
   const { latitude, longitude } = coordinates;
 
   return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`,
   )
     .then(checkResponse)
     .then(filterWeatherData);

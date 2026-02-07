@@ -47,7 +47,11 @@ function Header({ weatherData, onAddClick, user }) {
           />
         )}
 
-        <button className="header__add-button" type="button" onClick={onAddClick}>
+        <button
+          className="header__add-button"
+          type="button"
+          onClick={onAddClick}
+        >
           + Add Clothes
         </button>
 

@@ -1,19 +1,12 @@
 import "./ModalWithForm.css";
 import { useEffect } from "react";
 
-function ModalWithForm({
-  name,
-  title,
-  buttonText,
-  isOpen,
-  onClose,
-  children,
-}) {
+function ModalWithForm({ name, title, buttonText, isOpen, onClose, children }) {
   useEffect(() => {
     if (!isOpen) return;
 
-    function handleEscClose(evt) {
-      if (evt.key === "Escape") {
+    function handleEscClose(e) {
+      if (e.key === "Escape") {
         onClose();
       }
     }

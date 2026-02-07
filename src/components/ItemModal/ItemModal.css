@@ -19,7 +19,6 @@
   margin: 6px 0 0;
 }
 
-
 @media screen and (max-width: 480px) {
   .modal__content {
     width: calc(100% - 32px);

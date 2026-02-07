@@ -4,7 +4,7 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 
 function Main({ weatherData, clothingItems, onCardClick }) {
   const filteredItems = clothingItems.filter(
-    (item) => item.weather === weatherData.type
+    (item) => item.weather === weatherData.type,
   );
 
   return (
