@@ -12,7 +12,7 @@ import { defaultClothingItems } from "../../utils/clothingItems";
 function App() {
   const [weatherData, setWeatherData] = useState({
   temperature: 72,
-  location: "New York",
+  location: "",
   type: "warm",
   timeOfDay: "day",
   weatherType: "sunny",
@@ -21,12 +21,7 @@ function App() {
   useEffect(() => {
   getWeather()
     .then((data) => {
-      setWeatherData((prev) => ({
-        ...prev,
-        ...data,
-        timeOfDay: getTimeOfDay(data.sunrise, data.sunset),
-        weatherType: getWeatherType(data.weatherMain),
-      }));
+      setWeatherData(data);
     })
     .catch(console.error);
 }, []);

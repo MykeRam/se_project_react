@@ -42,7 +42,6 @@ function filterWeatherData(data) {
 
 function getWeather() {
   const { latitude, longitude } = coordinates;
-  console.log("USING API KEY:", apiKey);
 
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
@@ -51,5 +50,4 @@ function getWeather() {
     .then(filterWeatherData);
 }
 
-export { getWeather, getWeatherCondition, getTimeOfDay,
-  getWeatherType, };
+export { getWeather, getWeatherCondition, getTimeOfDay, getWeatherType };
