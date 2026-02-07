@@ -20,7 +20,7 @@ function Header({ weatherData, onAddClick, user }) {
   return (
     <header className="header">
       <div className="header__left">
-        <div className="header__logo">LOGO</div>
+        <div className="header__logo">WTWR</div>
         <p className="header__date-location">
           {currentDate}, {weatherData.location}
         </p>
