@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getWeather } from "../../utils/weatherApi";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -8,12 +9,17 @@ import { defaultClothingItems } from "../../utils/clothingItems";
 
 
 function App() {
-  // hardcoded for now (replace with real data later)
-  const [weatherData] = useState({
+  const [weatherData, setWeatherData] = useState({
     temperature: 72,
     location: "New York",
     type: "warm", // example: "hot" | "warm" | "cold"
   });
+
+  useEffect(() => {
+    getWeather().then((data) => {
+      setWeatherData(data);
+    });
+  }, []);
 
   const [activeModal, setActiveModal] = useState("");
 
