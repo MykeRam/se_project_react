@@ -63,3 +63,12 @@
   padding: 10px 12px;
   cursor: pointer;
 }
+
+
+@media screen and (max-width: 480px) {
+  .modal__content {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    padding: 16px;
+  }
+}

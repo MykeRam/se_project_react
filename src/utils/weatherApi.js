@@ -11,12 +11,33 @@ function getWeatherCondition(tempF) {
   return "cold";
 }
 
+function getTimeOfDay(sunrise, sunset) {
+  const now = Date.now() / 1000; // ms → seconds
+  return now >= sunrise && now < sunset ? "day" : "night";
+}
+
+function getWeatherType(weatherMain) {
+  if (weatherMain === "Clear") return "sunny";
+  if (weatherMain === "Clouds") return "cloudy";
+  if (weatherMain === "Rain") return "rain";
+  if (weatherMain === "Snow") return "snow";
+  return "fog";
+}
+
 function filterWeatherData(data) {
   const temperature = Math.round(data.main.temp);
   const location = data.name;
   const type = getWeatherCondition(temperature);
 
-  return { temperature, location, type };
+
+  const sunrise = data.sys.sunrise;
+  const sunset = data.sys.sunset;
+  const timeOfDay = getTimeOfDay(sunrise, sunset);
+
+  const weatherMain = data.weather[0].main;
+  const weatherType = getWeatherType(weatherMain);
+
+  return { temperature, location, type, timeOfDay, weatherType };
 }
 
 function getWeather() {
@@ -30,4 +51,5 @@ function getWeather() {
     .then(filterWeatherData);
 }
 
-export { getWeather, getWeatherCondition };
+export { getWeather, getWeatherCondition, getTimeOfDay,
+  getWeatherType, };

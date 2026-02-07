@@ -19,3 +19,11 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
+
+
+@media screen and (max-width: 768px) {
+  .main__items {
+    grid-template-columns: 1fr; /* if using grid */
+    gap: 12px;
+  }
+}

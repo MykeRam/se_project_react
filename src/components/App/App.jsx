@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getWeather } from "../../utils/weatherApi";
+import { getWeather, getTimeOfDay,
+  getWeatherType, } from "../../utils/weatherApi";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -10,16 +11,25 @@ import { defaultClothingItems } from "../../utils/clothingItems";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
-    temperature: 72,
-    location: "New York",
-    type: "warm", // example: "hot" | "warm" | "cold"
-  });
+  temperature: 72,
+  location: "New York",
+  type: "warm",
+  timeOfDay: "day",
+  weatherType: "sunny",
+});
 
   useEffect(() => {
-    getWeather().then((data) => {
-      setWeatherData(data);
-    });
-  }, []);
+  getWeather()
+    .then((data) => {
+      setWeatherData((prev) => ({
+        ...prev,
+        ...data,
+        timeOfDay: getTimeOfDay(data.sunrise, data.sunset),
+        weatherType: getWeatherType(data.weatherMain),
+      }));
+    })
+    .catch(console.error);
+}, []);
 
   const [activeModal, setActiveModal] = useState("");
 

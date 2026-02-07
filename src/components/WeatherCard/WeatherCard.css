@@ -1,12 +1,43 @@
 .weather-card {
-  background: #fff;
+  height: 80px;
   border-radius: 12px;
-  padding: 16px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  color: #fff;
+  font-weight: 700;
 }
 
 .weather-card__temp {
-  margin: 0;
   font-size: 32px;
-  font-weight: 700;
+  margin: 0;
+}
+
+.weather-card_day {
+  background-color: #00aaff;
+}
+
+.weather-card_night {
+  background-color: #003f6b;
+}
+
+.weather-card_sunny {
+  /* optional extra styling */
+}
+
+.weather-card_cloudy {
+  background-color: #6c757d;
+}
+
+.weather-card_rain {
+  background-color: #4a6fa5;
+}
+
+.weather-card_snow {
+  background-color: #bcdffb;
+  color: #003f6b;
+}
+
+.weather-card_fog {
+  background-color: #9aa5a8;
 }
