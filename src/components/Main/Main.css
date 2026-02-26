@@ -1,0 +1,29 @@
+.main {
+  padding: 16px;
+}
+
+.main__title {
+  margin: 16px 0;
+  font-size: 20px;
+}
+
+.main__section {
+  margin-top: 16px;
+}
+
+.main__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 323px);
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .main__items {
+    grid-template-columns: 1fr; /* if using grid */
+    gap: 12px;
+  }
+}

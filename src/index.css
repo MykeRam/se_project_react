@@ -1,0 +1,19 @@
+@import "./vendor/normalize.css";
+@import "./vendor/fonts.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #000;
+  background: #f3f3f3;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}

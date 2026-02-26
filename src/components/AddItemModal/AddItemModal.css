@@ -1,0 +1,106 @@
+.modal_type_add-garment .modal__content {
+  width: 496px;
+  max-width: calc(100% - 40px);
+  padding: 28px;
+  border-radius: 20px;
+}
+
+.modal_type_add-garment .modal__title {
+  margin: 0 0 24px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal_type_add-garment .modal__form {
+  gap: 24px;
+}
+
+.add-item__label {
+  display: grid;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.add-item__input {
+  border: none;
+  border-bottom: 1px solid #000;
+  padding: 0 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+}
+
+.add-item__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+
+/* Radio block */
+.add-item__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.add-item__legend {
+  padding: 0;
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.add-item__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.add-item__radio-label:has(.add-item__radio:checked) {
+  color: #000;
+  font-weight: 700;
+}
+
+.add-item__radio {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+/* Submit button (rendered inside ModalWithForm) */
+.modal_type_add-garment .modal__submit {
+  width: 160px;
+  height: 44px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: #000;
+  cursor: pointer;
+}
+
+.modal_type_add-garment .modal__submit:disabled {
+  background: #bdbdbd;
+  cursor: default;
+}
+
+.modal_type_add-garment .modal__submit {
+  justify-self: start;
+}
+
+@media screen and (max-width: 520px) {
+  .modal_type_add-garment .modal__content {
+    width: calc(100% - 32px);
+    max-width: none;
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
