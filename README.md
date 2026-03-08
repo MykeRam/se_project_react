@@ -47,12 +47,6 @@ The project is organized using a component-based structure:
 
 ---
 
-## Demo Video
-
-https://drive.google.com/file/d/1pckEEI9oSwydi9T9UUqyeMLUNgQ7gxQm/view?usp=sharing
-
----
-
 ## Project Pitch Video
  
  Check out https://drive.google.com/file/d/1pckEEI9oSwydi9T9UUqyeMLUNgQ7gxQm/view?usp=sharing, where I describe my 
