@@ -25,6 +25,18 @@
       "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Dress.png?etag=1f9cd32a311ab139cab43494883720bf"
     },
     {
+      "id": "5",
+      "name": "Hoodie",
+      "weather": "cold",
+      "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8"
+    },
+    {
+      "id": "6",
+      "name": "Jacket",
+      "weather": "cold",
+      "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad"
+    },
+    {
       "id": "7",
       "name": "Jeans",
       "weather": "warm",

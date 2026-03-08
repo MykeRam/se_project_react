@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { getWeather } from "../../utils/weatherApi";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -11,6 +10,7 @@ import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal";
 import { defaultClothingItems } from "../../utils/clothingItems";
 import { getItems, addItem, deleteItem } from "../../utils/api";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import useWeather from "../../hooks/useWeather";
 
 function App() {
   const user = {
@@ -19,21 +19,7 @@ function App() {
       "https://comicbook.com/wp-content/uploads/sites/4/2021/09/f07f8eed57dbf719fa539475e6e3f399.jpeg",
   };
 
-  const [weatherData, setWeatherData] = useState({
-    temperature: { F: 72, C: 22 },
-    location: "New York",
-    type: "warm",
-    timeOfDay: "day",
-    weatherType: "sunny",
-  });
-
-  useEffect(() => {
-    getWeather()
-      .then((data) => {
-        setWeatherData(data);
-      })
-      .catch(console.error);
-  }, []);
+  const weatherData = useWeather();
 
   const [activeModal, setActiveModal] = useState("");
   const [clothingItems, setClothingItems] = useState([]);
