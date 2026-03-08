@@ -5,6 +5,12 @@
   background: #f3f3f3;
 }
 
+.header__nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .header__left {
   display: flex;
   align-items: baseline;
@@ -106,6 +112,12 @@
     margin-left: 0;
     gap: 12px;
     flex-wrap: wrap;
+  }
+
+  .header__nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
   .header__logo,

@@ -1,7 +1,7 @@
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
-function ClothesSection({ clothingItems, onCardClick, onAddClick }) {
+function ClothesSection({ clothingItems = [], onCardClick, onAddClick }) {
   const itemsGapClass =
     clothingItems.length > 4
       ? "clothes-section__items_gap_85"
