@@ -8,6 +8,10 @@ function checkResponse(res) {
   return res.json();
 }
 
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
 function normalizeItem(item) {
   return {
     ...item,
@@ -17,13 +21,11 @@ function normalizeItem(item) {
 }
 
 function getItems() {
-  return fetch(`${BASE_URL}/items`)
-    .then(checkResponse)
-    .then((items) => items.map(normalizeItem));
+  return request(`${BASE_URL}/items`).then((items) => items.map(normalizeItem));
 }
 
 function addItem(itemData) {
-  return fetch(`${BASE_URL}/items`, {
+  return request(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,18 +36,13 @@ function addItem(itemData) {
       imageUrl: itemData.imageUrl,
     }),
   })
-    .then(checkResponse)
     .then(normalizeItem);
 }
 
 function deleteItem(itemId) {
-  return fetch(`${BASE_URL}/items/${itemId}`, {
+  return request(`${BASE_URL}/items/${itemId}`, {
     method: "DELETE",
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(new Error(`Request failed: ${res.status}`));
-    }
-
+  }).then(() => {
     return itemId;
   });
 }
