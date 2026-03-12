@@ -19,13 +19,33 @@ function App() {
       "https://comicbook.com/wp-content/uploads/sites/4/2021/09/f07f8eed57dbf719fa539475e6e3f399.jpeg",
   };
 
-  const weatherData = useWeather();
-
+  const [userCoordinates, setUserCoordinates] = useState(null);
+  const weatherData = useWeather(userCoordinates);
   const [activeModal, setActiveModal] = useState("");
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.error("Geolocation is not supported by this browser.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+      },
+      { enableHighAccuracy: true, maximumAge: 0 },
+    );
+  }, []);
 
   useEffect(() => {
     getItems()

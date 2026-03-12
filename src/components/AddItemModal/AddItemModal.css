@@ -32,6 +32,10 @@
   outline: none;
 }
 
+.add-item__input_invalid {
+  border-bottom-color: #d70015;
+}
+
 .add-item__input::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-weight: 500;
@@ -72,6 +76,12 @@
   width: 16px;
   height: 16px;
   margin: 0;
+}
+
+.add-item__error {
+  color: #d70015;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 /* Submit button (rendered inside ModalWithForm) */
