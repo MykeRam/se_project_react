@@ -5,6 +5,7 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 function Profile({
   clothingItems = [],
   onCardClick,
+  onCardLike,
   onAddClick,
   onEditProfileClick,
   onLogout,
@@ -15,6 +16,7 @@ function Profile({
       <ClothesSection
         clothingItems={clothingItems}
         onCardClick={onCardClick}
+        onCardLike={onCardLike}
         onAddClick={onAddClick}
       />
     </main>

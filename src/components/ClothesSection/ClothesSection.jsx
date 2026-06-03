@@ -1,7 +1,12 @@
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
-function ClothesSection({ clothingItems = [], onCardClick, onAddClick }) {
+function ClothesSection({
+  clothingItems = [],
+  onCardClick,
+  onCardLike,
+  onAddClick,
+}) {
   const itemsGapClass =
     clothingItems.length > 4
       ? "clothes-section__items_gap_85"
@@ -22,7 +27,12 @@ function ClothesSection({ clothingItems = [], onCardClick, onAddClick }) {
 
       <ul className={`clothes-section__items ${itemsGapClass}`}>
         {clothingItems.map((item) => (
-          <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
+          <ItemCard
+            key={item._id}
+            item={item}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+          />
         ))}
       </ul>
     </section>

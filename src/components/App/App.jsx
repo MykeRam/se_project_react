@@ -12,7 +12,13 @@ import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { defaultClothingItems } from "../../utils/clothingItems";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import {
   signup,
   signin,
@@ -144,6 +150,28 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
     setActiveModal("preview");
+  }
+
+  function handleCardLike({ id, isLiked }) {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      return;
+    }
+
+    const likeRequest = isLiked
+      ? removeCardLike(id, token)
+      : addCardLike(id, token);
+
+    likeRequest
+      .then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) =>
+            String(getItemId(item)) === String(id) ? updatedCard : item,
+          ),
+        );
+      })
+      .catch(console.error);
   }
 
   function handleCloseModal() {
@@ -292,6 +320,7 @@ function App() {
                   weatherData={weatherData}
                   clothingItems={clothingItems}
                   onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
                 />
               }
             />
@@ -305,6 +334,7 @@ function App() {
                   <Profile
                     clothingItems={currentUserItems}
                     onCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
                     onAddClick={handleAddClick}
                     onEditProfileClick={handleEditProfileClick}
                     onLogout={handleLogout}

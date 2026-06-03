@@ -31,6 +31,7 @@ function normalizeItem(item) {
     ...item,
     _id: item._id ?? item.id,
     imageUrl: item.imageUrl ?? item.link,
+    likes: item.likes ?? [],
   };
 }
 
@@ -60,11 +61,25 @@ function deleteItem(itemId, token) {
   });
 }
 
-function updateLikeStatus(itemId, token, isLiked) {
+function addCardLike(itemId, token) {
   return request(`${BASE_URL}/items/${itemId}/likes`, {
-    method: isLiked ? "DELETE" : "PUT",
+    method: "PUT",
     headers: getAuthorizationHeaders(token),
   }).then(normalizeItem);
 }
 
-export { checkResponse, getItems, addItem, deleteItem, updateLikeStatus };
+function removeCardLike(itemId, token) {
+  return request(`${BASE_URL}/items/${itemId}/likes`, {
+    method: "DELETE",
+    headers: getAuthorizationHeaders(token),
+  }).then(normalizeItem);
+}
+
+export {
+  checkResponse,
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+};
