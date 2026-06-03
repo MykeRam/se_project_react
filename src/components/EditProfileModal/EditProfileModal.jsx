@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useForm from "../../hooks/useForm";
 import "./EditProfileModal.css";
 
@@ -20,10 +21,10 @@ function isValidUrl(url) {
 function EditProfileModal({
   isOpen,
   isLoading,
-  currentUser,
   onClose,
   onUpdateProfile,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, resetForm } = useForm(INITIAL_FORM_VALUES);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [touched, setTouched] = useState(INITIAL_FORM_VALUES);

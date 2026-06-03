@@ -340,7 +340,6 @@ function App() {
           <EditProfileModal
             isOpen={activeModal === "edit-profile"}
             isLoading={isAuthLoading}
-            currentUser={currentUser}
             onClose={handleCloseModal}
             onUpdateProfile={handleUpdateProfileSubmit}
           />

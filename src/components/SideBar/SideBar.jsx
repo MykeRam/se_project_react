@@ -24,7 +24,7 @@ function SideBar({ onLogout, onEditProfileClick }) {
             type="button"
             onClick={onEditProfileClick}
           >
-            Change profile
+            Edit profile
           </button>
           <button
             className="sidebar__button sidebar__button_type_secondary"
