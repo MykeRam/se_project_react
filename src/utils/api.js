@@ -12,6 +12,20 @@ function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
 
+function getAuthorizationHeaders(token, withJson = false) {
+  const headers = {};
+
+  if (withJson) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.authorization = `Bearer ${token}`;
+  }
+
+  return headers;
+}
+
 function normalizeItem(item) {
   return {
     ...item,
@@ -24,12 +38,10 @@ function getItems() {
   return request(`${BASE_URL}/items`).then((items) => items.map(normalizeItem));
 }
 
-function addItem(itemData) {
+function addItem(itemData, token) {
   return request(`${BASE_URL}/items`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthorizationHeaders(token, true),
     body: JSON.stringify({
       name: itemData.name,
       weather: itemData.weather,
@@ -39,12 +51,20 @@ function addItem(itemData) {
     .then(normalizeItem);
 }
 
-function deleteItem(itemId) {
+function deleteItem(itemId, token) {
   return request(`${BASE_URL}/items/${itemId}`, {
     method: "DELETE",
+    headers: getAuthorizationHeaders(token),
   }).then(() => {
     return itemId;
   });
 }
 
-export { checkResponse, getItems, addItem, deleteItem };
+function updateLikeStatus(itemId, token, isLiked) {
+  return request(`${BASE_URL}/items/${itemId}/likes`, {
+    method: isLiked ? "DELETE" : "PUT",
+    headers: getAuthorizationHeaders(token),
+  }).then(normalizeItem);
+}
+
+export { checkResponse, getItems, addItem, deleteItem, updateLikeStatus };

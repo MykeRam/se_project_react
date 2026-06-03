@@ -1,7 +1,7 @@
 import "./ItemModal.css";
 import useModalClose from "../../hooks/useModalClose";
 
-function ItemModal({ isOpen, card, onDeleteClick, onClose }) {
+function ItemModal({ isOpen, card, canDelete, onDeleteClick, onClose }) {
   useModalClose(isOpen, onClose);
 
   if (!card) return null;
@@ -21,13 +21,15 @@ function ItemModal({ isOpen, card, onDeleteClick, onClose }) {
         <div className="modal__caption">
           <div className="modal__caption-row">
             <p className="modal__title">{card.name}</p>
-            <button
-              className="modal__delete-button"
-              type="button"
-              onClick={() => onDeleteClick(card)}
-            >
-              Delete item
-            </button>
+            {canDelete ? (
+              <button
+                className="modal__delete-button"
+                type="button"
+                onClick={() => onDeleteClick(card)}
+              >
+                Delete item
+              </button>
+            ) : null}
           </div>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>

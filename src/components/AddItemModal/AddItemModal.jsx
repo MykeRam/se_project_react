@@ -20,7 +20,7 @@ function isValidImageUrl(url) {
   }
 }
 
-function AddItemModal({ isOpen, onAddItem, onClose, buttonText }) {
+function AddItemModal({ isOpen, isLoading, onAddItem, onClose }) {
   const { values, handleChange, resetForm } = useForm(INITIAL_FORM_VALUES);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [touched, setTouched] = useState(INITIAL_FORM_VALUES);
@@ -75,8 +75,9 @@ function AddItemModal({ isOpen, onAddItem, onClose, buttonText }) {
     <ModalWithForm
       name="add-garment"
       title="New garment"
-      buttonText={buttonText}
+      buttonText={isLoading ? "Adding..." : "Add garment"}
       isOpen={isOpen}
+      isSubmitDisabled={!isValid || isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}
     >

@@ -7,25 +7,34 @@ import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { defaultClothingItems } from "../../utils/clothingItems";
 import { getItems, addItem, deleteItem } from "../../utils/api";
+import {
+  signup,
+  signin,
+  getUserData,
+  updateUserData,
+} from "../../utils/auth";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useWeather from "../../hooks/useWeather";
 
 function App() {
-  const user = {
-    name: "Myke",
-    avatar:
-      "https://comicbook.com/wp-content/uploads/sites/4/2021/09/f07f8eed57dbf719fa539475e6e3f399.jpeg",
-  };
-
   const [userCoordinates, setUserCoordinates] = useState(null);
   const weatherData = useWeather(userCoordinates);
   const [activeModal, setActiveModal] = useState("");
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [isItemLoading, setIsItemLoading] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
+  const isLoggedIn = Boolean(currentUser);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -62,6 +71,28 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      setIsAuthChecked(true);
+      return;
+    }
+
+    getUserData(token)
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((error) => {
+        console.error(error);
+        localStorage.removeItem("jwt");
+        setCurrentUser(null);
+      })
+      .finally(() => {
+        setIsAuthChecked(true);
+      });
+  }, []);
+
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
@@ -72,8 +103,42 @@ function App() {
     return item?._id ?? item?.id ?? null;
   }
 
+  function getItemOwnerId(item) {
+    return item?.owner?._id ?? item?.owner?.id ?? item?.ownerId ?? item?.owner ?? null;
+  }
+
+  function isCurrentUserItem(item) {
+    const currentUserId = currentUser?._id ?? currentUser?.id ?? null;
+
+    if (!currentUserId) {
+      return false;
+    }
+
+    return String(getItemOwnerId(item)) === String(currentUserId);
+  }
+
+  const currentUserItems = currentUser
+    ? clothingItems.filter((item) => isCurrentUserItem(item))
+    : [];
+
   function handleAddClick() {
-    setActiveModal("add-garment");
+    if (isLoggedIn) {
+      setActiveModal("add-garment");
+    }
+  }
+
+  function handleLoginClick() {
+    setActiveModal("login");
+  }
+
+  function handleRegisterClick() {
+    setActiveModal("register");
+  }
+
+  function handleEditProfileClick() {
+    if (isLoggedIn) {
+      setActiveModal("edit-profile");
+    }
   }
 
   function handleCardClick(card) {
@@ -86,9 +151,81 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleAuthSuccess(userData) {
+    setCurrentUser(userData);
+    handleCloseModal();
+  }
+
+  function handleAuthorize(credentials) {
+    return signin(credentials).then((res) => {
+      localStorage.setItem("jwt", res.token);
+      return getUserData(res.token);
+    });
+  }
+
+  function handleRegisterSubmit(values) {
+    setIsAuthLoading(true);
+
+    signup(values)
+      .then(() =>
+        handleAuthorize({ email: values.email, password: values.password }),
+      )
+      .then(handleAuthSuccess)
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
+  }
+
+  function handleLoginSubmit(values) {
+    setIsAuthLoading(true);
+
+    handleAuthorize(values)
+      .then(handleAuthSuccess)
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
+  }
+
+  function handleUpdateProfileSubmit(values) {
+    setIsAuthLoading(true);
+
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      setIsAuthLoading(false);
+      return;
+    }
+
+    updateUserData(token, values)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        handleCloseModal();
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("jwt");
+    setCurrentUser(null);
+    handleCloseModal();
+  }
+
   function handleAddItemSubmit(newItem, resetForm) {
-    setIsLoading(true);
-    addItem(newItem)
+    setIsItemLoading(true);
+    const token = localStorage.getItem("jwt");
+
+    addItem(newItem, token)
       .then((item) => {
         setClothingItems((prevItems) => [item, ...prevItems]);
         resetForm();
@@ -96,7 +233,7 @@ function App() {
       })
       .catch(console.error)
       .finally(() => {
-        setIsLoading(false);
+        setIsItemLoading(false);
       });
   }
 
@@ -109,6 +246,8 @@ function App() {
     const selectedCardId = getItemId(selectedCard);
     if (!selectedCardId) return;
 
+    const token = localStorage.getItem("jwt");
+
     const removeItemFromState = () => {
       setClothingItems((prevItems) =>
         prevItems.filter(
@@ -118,72 +257,109 @@ function App() {
       handleCloseModal();
     };
 
-    setIsLoading(true);
-    deleteItem(selectedCardId)
+    setIsItemLoading(true);
+    deleteItem(selectedCardId, token)
       .then(removeItemFromState)
       .catch(console.error)
       .finally(() => {
-        setIsLoading(false);
+        setIsItemLoading(false);
       });
   }
+
+  const canDeleteSelectedCard = Boolean(
+    isLoggedIn && selectedCard && isCurrentUserItem(selectedCard),
+  );
 
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
-        <Header
-          weatherData={weatherData}
-          onAddClick={handleAddClick}
-          user={user}
-        />
-
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                weatherData={weatherData}
-                clothingItems={clothingItems}
-                onCardClick={handleCardClick}
-              />
-            }
+        <CurrentUserContext.Provider value={currentUser}>
+          <Header
+            weatherData={weatherData}
+            onAddClick={handleAddClick}
+            onLoginClick={handleLoginClick}
+            onRegisterClick={handleRegisterClick}
+            isAuthChecked={isAuthChecked}
           />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                user={user}
-                clothingItems={clothingItems}
-                onCardClick={handleCardClick}
-                onAddClick={handleAddClick}
-              />
-            }
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  clothingItems={clothingItems}
+                  onCardClick={handleCardClick}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  isAuthChecked={isAuthChecked}
+                >
+                  <Profile
+                    clothingItems={currentUserItems}
+                    onCardClick={handleCardClick}
+                    onAddClick={handleAddClick}
+                    onEditProfileClick={handleEditProfileClick}
+                    onLogout={handleLogout}
+                  />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+
+          <Footer />
+
+          <AddItemModal
+            isOpen={activeModal === "add-garment"}
+            isLoading={isItemLoading}
+            onAddItem={handleAddItemSubmit}
+            onClose={handleCloseModal}
           />
-        </Routes>
 
-        <Footer />
+          <RegisterModal
+            isOpen={activeModal === "register"}
+            isLoading={isAuthLoading}
+            onClose={handleCloseModal}
+            onRegister={handleRegisterSubmit}
+          />
 
-        <AddItemModal
-          isOpen={activeModal === "add-garment"}
-          onAddItem={handleAddItemSubmit}
-          onClose={handleCloseModal}
-          buttonText={isLoading ? "Adding..." : "Add garment"}
-        />
+          <LoginModal
+            isOpen={activeModal === "login"}
+            isLoading={isAuthLoading}
+            onClose={handleCloseModal}
+            onLogin={handleLoginSubmit}
+          />
 
-        <ItemModal
-          isOpen={activeModal === "preview"}
-          card={selectedCard}
-          onDeleteClick={handleDeleteRequest}
-          onClose={handleCloseModal}
-        />
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            isLoading={isAuthLoading}
+            currentUser={currentUser}
+            onClose={handleCloseModal}
+            onUpdateProfile={handleUpdateProfileSubmit}
+          />
 
-        <DeleteConfirmModal
-          isOpen={activeModal === "confirm-delete"}
-          onConfirm={handleDeleteConfirm}
-          onClose={handleCloseModal}
-          buttonText={isLoading ? "Deleting..." : "Yes, delete item"}
-        />
+          <ItemModal
+            isOpen={activeModal === "preview"}
+            card={selectedCard}
+            canDelete={canDeleteSelectedCard}
+            onDeleteClick={handleDeleteRequest}
+            onClose={handleCloseModal}
+          />
+
+          <DeleteConfirmModal
+            isOpen={activeModal === "confirm-delete"}
+            onConfirm={handleDeleteConfirm}
+            onClose={handleCloseModal}
+            buttonText={isItemLoading ? "Deleting..." : "Yes, delete item"}
+          />
+        </CurrentUserContext.Provider>
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );

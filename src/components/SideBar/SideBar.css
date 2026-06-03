@@ -19,6 +19,50 @@
   line-height: 1.2;
 }
 
+.sidebar__content {
+  display: grid;
+  gap: 12px;
+}
+
+.sidebar__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar__button {
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sidebar__button_type_primary {
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+}
+
+.sidebar__button_type_primary:hover {
+  background: #545454;
+}
+
+.sidebar__button_type_secondary {
+  border: 1px solid #000;
+  background: transparent;
+  color: #000;
+}
+
+.sidebar__button_type_secondary:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
 @media screen and (max-width: 900px) {
   .sidebar {
     width: 100%;
