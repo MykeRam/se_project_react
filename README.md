@@ -52,6 +52,14 @@ The project is organized using a component-based structure:
  Check out https://drive.google.com/file/d/1pckEEI9oSwydi9T9UUqyeMLUNgQ7gxQm/view?usp=sharing, where I describe my 
  project and some challenges I faced while building it.
 
+---
+
+## Backend Repository
+
+[MykeRam/se_project_express](https://github.com/MykeRam/se_project_express)
+
+---
+
 ```bash
 npm run build
 npm run preview
