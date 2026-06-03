@@ -31,7 +31,7 @@ function SideBar({ onLogout, onEditProfileClick }) {
             type="button"
             onClick={onLogout}
           >
-            Log out
+            Sign out
           </button>
         </div>
       </div>
