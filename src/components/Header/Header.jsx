@@ -18,6 +18,7 @@ function Header({
   });
   const location = weatherData.location || "";
   const userName = currentUser?.name || "Profile";
+  const userInitial = userName ? userName.charAt(0).toUpperCase() : "";
   const avatar = currentUser?.avatar || "";
   const isLoggedIn = Boolean(currentUser);
   const showAuthButtons = isAuthChecked && !isLoggedIn;
@@ -51,7 +52,13 @@ function Header({
 
               <Link className="header__profile-link" to="/profile">
                 <p className="header__username">{userName}</p>
-                <img className="header__avatar" src={avatar} alt={userName} />
+                {avatar ? (
+                  <img className="header__avatar" src={avatar} alt={userName} />
+                ) : (
+                  <span className="header__avatar header__avatar_placeholder">
+                    {userInitial}
+                  </span>
+                )}
               </Link>
             </>
           ) : showAuthButtons ? (
