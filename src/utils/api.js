@@ -31,7 +31,7 @@ function normalizeItem(item) {
     ...item,
     _id: item._id ?? item.id,
     imageUrl: item.imageUrl ?? item.link,
-    likes: item.likes ?? [],
+    likes: (item.likes ?? []).map((like) => like?._id ?? like?.id ?? like),
   };
 }
 

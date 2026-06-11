@@ -294,10 +294,6 @@ function App() {
       });
   }
 
-  const canDeleteSelectedCard = Boolean(
-    isLoggedIn && selectedCard && isCurrentUserItem(selectedCard),
-  );
-
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
@@ -377,7 +373,6 @@ function App() {
           <ItemModal
             isOpen={activeModal === "preview"}
             card={selectedCard}
-            canDelete={canDeleteSelectedCard}
             onDeleteClick={handleDeleteRequest}
             onClose={handleCloseModal}
           />

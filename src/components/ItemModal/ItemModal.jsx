@@ -1,10 +1,21 @@
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemModal.css";
 import useModalClose from "../../hooks/useModalClose";
 
-function ItemModal({ isOpen, card, canDelete, onDeleteClick, onClose }) {
+function ItemModal({ isOpen, card, onDeleteClick, onClose }) {
   useModalClose(isOpen, onClose);
+  const currentUser = useContext(CurrentUserContext);
 
   if (!card) return null;
+
+  const currentUserId = currentUser?._id ?? currentUser?.id ?? null;
+  const ownerId =
+    card?.owner?._id ?? card?.owner?.id ?? card?.ownerId ?? card?.owner ?? null;
+  const isOwn =
+    Boolean(currentUserId) &&
+    Boolean(ownerId) &&
+    String(currentUserId) === String(ownerId);
 
   return (
     <div
@@ -21,7 +32,7 @@ function ItemModal({ isOpen, card, canDelete, onDeleteClick, onClose }) {
         <div className="modal__caption">
           <div className="modal__caption-row">
             <p className="modal__title">{card.name}</p>
-            {canDelete ? (
+            {isOwn ? (
               <button
                 className="modal__delete-button"
                 type="button"

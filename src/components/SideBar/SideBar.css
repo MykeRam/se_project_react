@@ -12,6 +12,18 @@
   object-fit: cover;
 }
 
+.sidebar__avatar_placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .sidebar__name {
   margin: 0;
   font-size: 20px;

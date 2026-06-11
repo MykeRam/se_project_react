@@ -86,7 +86,7 @@ function EditProfileModal({
   return (
     <ModalWithForm
       name="edit-profile"
-      title="Change profile"
+      title="Change profile data"
       buttonText={isLoading ? "Saving..." : "Save changes"}
       isOpen={isOpen}
       isSubmitDisabled={!isValid || isLoading}
