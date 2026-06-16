@@ -1,16 +1,6 @@
+import { request } from "./api";
+
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
-
-function checkResponse(res) {
-  if (!res.ok) {
-    return Promise.reject(new Error(`Request failed: ${res.status}`));
-  }
-
-  return res.json();
-}
-
-function request(url, options) {
-  return fetch(url, options).then(checkResponse);
-}
 
 function signup({ name, avatar, email, password }) {
   return request(`${BASE_URL}/signup`, {
@@ -56,4 +46,4 @@ function updateUserData(token, userData) {
   });
 }
 
-export { checkResponse, signup, signin, getUserData, updateUserData };
+export { signup, signin, getUserData, updateUserData };

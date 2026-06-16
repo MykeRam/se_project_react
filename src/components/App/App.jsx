@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -30,6 +30,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useWeather from "../../hooks/useWeather";
 
 function App() {
+  const navigate = useNavigate();
   const [userCoordinates, setUserCoordinates] = useState(null);
   const weatherData = useWeather(userCoordinates);
   const [activeModal, setActiveModal] = useState("");
@@ -182,6 +183,7 @@ function App() {
   function handleAuthSuccess(userData) {
     setCurrentUser(userData);
     handleCloseModal();
+    navigate("/", { replace: true });
   }
 
   function handleAuthorize(credentials) {

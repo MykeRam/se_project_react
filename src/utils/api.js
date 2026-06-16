@@ -77,6 +77,7 @@ function removeCardLike(itemId, token) {
 
 export {
   checkResponse,
+  request,
   getItems,
   addItem,
   deleteItem,
