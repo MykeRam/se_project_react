@@ -12,7 +12,7 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function LoginModal({ isOpen, isLoading, onClose, onLogin }) {
+function LoginModal({ isOpen, isLoading, onClose, onLogin, onSignUpClick }) {
   const { values, handleChange, resetForm } = useForm(INITIAL_FORM_VALUES);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [touched, setTouched] = useState(INITIAL_FORM_VALUES);
@@ -71,10 +71,12 @@ function LoginModal({ isOpen, isLoading, onClose, onLogin }) {
       name="login"
       title="Log in"
       buttonText={isLoading ? "Logging in..." : "Log in"}
+      secondaryButtonText="or Sign up"
       isOpen={isOpen}
       isSubmitDisabled={!isValid || isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onSecondaryAction={onSignUpClick}
     >
       <label className="auth-modal__label">
         Email

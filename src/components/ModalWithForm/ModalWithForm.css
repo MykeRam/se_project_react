@@ -60,6 +60,13 @@
   gap: 12px;
 }
 
+.modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
 .modal__submit {
   appearance: none;
   -webkit-appearance: none;
@@ -81,10 +88,29 @@
   cursor: not-allowed;
 }
 
+.modal__secondary-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #bdbdbd;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+.modal__secondary-button:hover {
+  color: #7f7f7f;
+}
+
 @media screen and (max-width: 480px) {
   .modal__content {
     width: calc(100% - 32px);
     margin: 0 16px;
     padding: 16px;
+  }
+
+  .modal__actions {
+    flex-wrap: wrap;
   }
 }

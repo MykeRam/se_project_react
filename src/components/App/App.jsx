@@ -356,6 +356,7 @@ function App() {
             isLoading={isAuthLoading}
             onClose={handleCloseModal}
             onRegister={handleRegisterSubmit}
+            onLogInClick={handleLoginClick}
           />
 
           <LoginModal
@@ -363,6 +364,7 @@ function App() {
             isLoading={isAuthLoading}
             onClose={handleCloseModal}
             onLogin={handleLoginSubmit}
+            onSignUpClick={handleRegisterClick}
           />
 
           <EditProfileModal
