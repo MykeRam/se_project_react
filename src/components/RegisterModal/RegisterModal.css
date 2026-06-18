@@ -48,24 +48,10 @@
 }
 
 .modal_type_register .modal__submit {
-  width: 100%;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
-  background: #000;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.modal_type_register .modal__submit:disabled {
-  background: #bdbdbd;
-  cursor: default;
-}
-
-.modal_type_register .modal__submit:enabled:hover {
-  background: #545454;
 }
 
 @media screen and (max-width: 520px) {

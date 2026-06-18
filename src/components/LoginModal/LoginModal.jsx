@@ -69,9 +69,9 @@ function LoginModal({ isOpen, isLoading, onClose, onLogin, onSignUpClick }) {
   return (
     <ModalWithForm
       name="login"
-      title="Log in"
-      buttonText={isLoading ? "Logging in..." : "Log in"}
-      secondaryButtonText="or Sign up"
+      title="Log In"
+      buttonText={isLoading ? "Logging In..." : "Log In"}
+      secondaryButtonText="or Sign Up"
       isOpen={isOpen}
       isSubmitDisabled={!isValid || isLoading}
       onClose={onClose}

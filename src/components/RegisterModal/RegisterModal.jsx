@@ -97,9 +97,9 @@ function RegisterModal({ isOpen, isLoading, onClose, onRegister, onLogInClick })
   return (
     <ModalWithForm
       name="register"
-      title="Sign up"
-      buttonText={isLoading ? "Signing up..." : "Sign up"}
-      secondaryButtonText="or Log in"
+      title="Sign Up"
+      buttonText={isLoading ? "Signing Up..." : "Sign Up"}
+      secondaryButtonText="or Log In"
       isOpen={isOpen}
       isSubmitDisabled={!isValid || isLoading}
       onClose={onClose}

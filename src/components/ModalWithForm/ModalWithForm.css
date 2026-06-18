@@ -63,44 +63,49 @@
 .modal__actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 12px;
+  gap: 24px;
+  margin-top: 8px;
 }
 
 .modal__submit {
   appearance: none;
   -webkit-appearance: none;
-  padding: 10px 12px;
-  width: 160px;
-  height: 44px;
+  width: auto;
+  min-width: 132px;
+  height: 50px;
+  padding: 0 28px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 700;
-  background-color: #bdbdbd;
+  background-color: #000;
   color: #fff;
-  cursor: default;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .modal__submit:disabled {
   background-color: #e5e5e5;
-  color: #9b9b9b;
   cursor: not-allowed;
+}
+
+.modal__submit:enabled:hover {
+  background-color: #2b2b2b;
 }
 
 .modal__secondary-button {
   border: none;
   background: transparent;
   padding: 0;
-  color: #bdbdbd;
+  color: #7f7f7f;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   text-align: left;
 }
 
 .modal__secondary-button:hover {
-  color: #7f7f7f;
+  color: #5f5f5f;
 }
 
 @media screen and (max-width: 480px) {
