@@ -53,14 +53,10 @@
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.92);
-  color: #000;
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
   transition:
     transform 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.2s ease;
 }
 
 .item-card__like-button:hover {
@@ -69,5 +65,11 @@
 }
 
 .item-card__like-button_active {
-  color: #d70015;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.item-card__like-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
